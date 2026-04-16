@@ -1,0 +1,1302 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QUADRO — Tecnologia que Transforma</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink:       #0F1A2B;
+      --ink-60:    rgba(15,26,43,0.6);
+      --ink-20:    rgba(15,26,43,0.12);
+      --ink-08:    rgba(15,26,43,0.06);
+      --bg:        #F6F6F4;
+      --bg-card:   #FFFFFF;
+      --accent:    #0F1A2B;
+      --line:      rgba(15,26,43,0.10);
+      --radius:    20px;
+      --radius-sm: 12px;
+      --sans:      'DM Sans', sans-serif;
+      --mono:      'DM Mono', monospace;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--ink);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 48px;
+      height: 64px;
+      background: rgba(246,246,244,0.82);
+      backdrop-filter: blur(18px) saturate(1.2);
+      border-bottom: 1px solid var(--line);
+      transition: border-color 0.3s;
+    }
+
+    .nav-logo {
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none; color: var(--ink);
+    }
+    .nav-logo-icon { width: 32px; height: 32px; }
+    .nav-logo-name {
+      font-family: var(--sans);
+      font-weight: 500;
+      font-size: 15px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex; gap: 36px; list-style: none;
+    }
+    .nav-links a {
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0.5px;
+      color: var(--ink-60);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--ink); }
+
+    .nav-cta {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+      color: var(--bg);
+      background: var(--ink);
+      padding: 9px 22px;
+      border-radius: 100px;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+    .nav-cta:hover { opacity: 0.78; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+      padding: 120px 24px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* subtle grid bg */
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(var(--line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--line) 1px, transparent 1px);
+      background-size: 40px 40px;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
+    }
+
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 7px;
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--ink-60);
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.6);
+      padding: 6px 16px;
+      border-radius: 100px;
+      margin-bottom: 40px;
+      backdrop-filter: blur(8px);
+      animation: fadeUp 0.8s ease both;
+    }
+    .hero-badge::before {
+      content: '';
+      width: 6px; height: 6px;
+      background: var(--ink);
+      border-radius: 50%;
+      animation: blink 2s ease-in-out infinite;
+    }
+
+    .hero-logo-wrap {
+      margin-bottom: 48px;
+      animation: fadeUp 0.9s 0.1s ease both;
+    }
+
+    /* animated logo inline */
+    .hero-logo-svg {
+      width: 180px; height: 180px;
+    }
+
+    .hero h1 {
+      font-size: clamp(42px, 7vw, 80px);
+      font-weight: 300;
+      line-height: 1.08;
+      letter-spacing: -2px;
+      color: var(--ink);
+      max-width: 760px;
+      animation: fadeUp 1s 0.2s ease both;
+    }
+    .hero h1 em {
+      font-style: italic;
+      font-weight: 300;
+    }
+
+    .hero-sub {
+      margin-top: 24px;
+      font-size: 17px;
+      font-weight: 300;
+      color: var(--ink-60);
+      max-width: 480px;
+      animation: fadeUp 1s 0.3s ease both;
+    }
+
+    .hero-actions {
+      display: flex; gap: 12px; margin-top: 44px;
+      animation: fadeUp 1s 0.4s ease both;
+    }
+
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--ink);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.2px;
+      padding: 14px 30px;
+      border-radius: 100px;
+      text-decoration: none;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .btn-primary:hover { opacity: 0.82; transform: translateY(-1px); }
+
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: transparent;
+      color: var(--ink);
+      font-size: 14px;
+      font-weight: 400;
+      letter-spacing: 0.2px;
+      padding: 14px 30px;
+      border-radius: 100px;
+      border: 1px solid var(--line);
+      text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn-ghost:hover { background: var(--ink-08); transform: translateY(-1px); }
+
+    /* ── SECTION COMMON ── */
+    section {
+      padding: 120px 48px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--ink-60);
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-size: clamp(28px, 4vw, 48px);
+      font-weight: 300;
+      line-height: 1.12;
+      letter-spacing: -1px;
+      color: var(--ink);
+      max-width: 580px;
+    }
+
+    .section-title em { font-style: italic; }
+
+    .section-divider {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      border: none;
+      border-top: 1px solid var(--line);
+    }
+
+    /* ── SERVICES ── */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-top: 64px;
+    }
+
+    .service-card {
+      background: var(--bg-card);
+      padding: 44px 36px;
+      display: flex; flex-direction: column; gap: 20px;
+      transition: background 0.2s;
+      cursor: default;
+    }
+    .service-card:hover { background: var(--ink-08); }
+
+    .service-icon {
+      width: 40px; height: 40px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      display: flex; align-items: center; justify-content: center;
+      background: var(--bg);
+    }
+    .service-icon svg { width: 18px; height: 18px; stroke: var(--ink); fill: none; stroke-width: 1.5; }
+
+    .service-number {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      color: var(--ink-60);
+    }
+
+    .service-card h3 {
+      font-size: 18px;
+      font-weight: 500;
+      letter-spacing: -0.3px;
+      color: var(--ink);
+      line-height: 1.2;
+    }
+
+    .service-card p {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--ink-60);
+      line-height: 1.65;
+    }
+
+    .service-link {
+      margin-top: auto;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--ink);
+      text-decoration: none;
+      display: inline-flex; align-items: center; gap: 6px;
+      letter-spacing: 0.2px;
+      opacity: 0.5;
+      transition: opacity 0.2s;
+    }
+    .service-card:hover .service-link { opacity: 1; }
+    .service-link svg { width: 14px; height: 14px; stroke: currentColor; fill: none; }
+
+    /* ── ABOUT SPLIT ── */
+    .about-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+      padding-top: 120px; padding-bottom: 120px;
+    }
+
+    .about-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      background: var(--line);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-top: 48px;
+    }
+
+    .stat-cell {
+      background: var(--bg-card);
+      padding: 32px 28px;
+    }
+
+    .stat-cell .num {
+      font-size: 36px;
+      font-weight: 300;
+      letter-spacing: -1.5px;
+      color: var(--ink);
+      line-height: 1;
+    }
+    .stat-cell .lbl {
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--ink-60);
+      margin-top: 6px;
+    }
+
+    .about-right {
+      padding-top: 16px;
+    }
+
+    .about-right p {
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--ink-60);
+      line-height: 1.75;
+      margin-top: 28px;
+    }
+
+    .about-right p + p { margin-top: 16px; }
+
+    .about-pillars {
+      margin-top: 40px;
+      display: flex; flex-direction: column; gap: 2px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+    }
+
+    .pillar {
+      display: flex; align-items: center; gap: 16px;
+      padding: 16px 20px;
+      background: var(--bg-card);
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--ink);
+      border-bottom: 1px solid var(--line);
+      transition: background 0.2s;
+    }
+    .pillar:last-child { border-bottom: none; }
+    .pillar:hover { background: var(--ink-08); }
+
+    .pillar-dot {
+      width: 6px; height: 6px;
+      background: var(--ink);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* ── METHODOLOGY ── */
+    .method-wrap { padding-top: 120px; padding-bottom: 120px; }
+
+    .method-steps {
+      margin-top: 64px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .step {
+      background: var(--bg-card);
+      padding: 40px 28px;
+      display: flex; flex-direction: column; gap: 16px;
+      position: relative;
+    }
+
+    .step-num {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 1px;
+      color: var(--ink-60);
+    }
+
+    .step h4 {
+      font-size: 16px;
+      font-weight: 500;
+      letter-spacing: -0.2px;
+      color: var(--ink);
+    }
+
+    .step p {
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--ink-60);
+      line-height: 1.6;
+    }
+
+    /* ── TECH STRIP ── */
+    .tech-strip {
+      padding: 48px;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      overflow: hidden;
+    }
+
+    .tech-inner {
+      display: flex; gap: 56px; align-items: center;
+      animation: scroll 24s linear infinite;
+      width: max-content;
+    }
+
+    .tech-item {
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--ink-60);
+      white-space: nowrap;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .tech-item::after {
+      content: '·';
+      color: var(--line);
+      font-size: 20px;
+    }
+    .tech-item:last-child::after { content: ''; }
+
+    @keyframes scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ── CTA BLOCK ── */
+    .cta-block {
+      margin: 0 48px 120px;
+      background: var(--ink);
+      border-radius: var(--radius);
+      padding: 100px 80px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-block::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+
+    .cta-block h2 {
+      font-size: clamp(30px, 5vw, 52px);
+      font-weight: 300;
+      letter-spacing: -1.5px;
+      line-height: 1.1;
+      color: #fff;
+      max-width: 600px;
+      position: relative;
+    }
+    .cta-block h2 em { font-style: italic; opacity: 0.6; }
+
+    .cta-block p {
+      font-size: 15px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.55);
+      max-width: 400px;
+      position: relative;
+    }
+
+    .btn-light {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: #fff;
+      color: var(--ink);
+      font-size: 14px;
+      font-weight: 500;
+      padding: 14px 30px;
+      border-radius: 100px;
+      text-decoration: none;
+      transition: opacity 0.2s, transform 0.2s;
+      position: relative;
+    }
+    .btn-light:hover { opacity: 0.88; transform: translateY(-1px); }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 60px 48px 48px;
+      display: grid;
+      grid-template-columns: 200px 1fr 1fr 1fr;
+      gap: 48px;
+      max-width: 1296px;
+      margin: 0 auto;
+    }
+
+    .footer-brand { display: flex; flex-direction: column; gap: 16px; }
+
+    .footer-brand .tagline {
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--ink-60);
+      line-height: 1.5;
+    }
+
+    .footer-col h5 {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--ink-60);
+      margin-bottom: 20px;
+    }
+
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col a {
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--ink);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-col a:hover { color: var(--ink-60); }
+
+    .footer-bottom {
+      border-top: 1px solid var(--line);
+      padding: 28px 48px;
+      max-width: 1296px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-bottom p {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.5px;
+      color: var(--ink-60);
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.3; }
+    }
+
+    /* Intersection Observer reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ── LOGO SVG ANIMATION ── */
+    .logo-center {
+      fill: #0F1A2B;
+      animation: pulse 4s ease-in-out infinite;
+      transform-origin: 50% 50%;
+    }
+
+    .logo-sq {
+      fill: none;
+      stroke: #1A2536;
+      stroke-width: 2;
+      stroke-dasharray: 250;
+      stroke-dashoffset: 250;
+      animation: draw 6s ease-in-out infinite;
+    }
+
+    .logo-sq1 { animation-delay: 0s; }
+    .logo-sq2 { animation-delay: 0.5s; }
+    .logo-sq3 { animation-delay: 1s; }
+    .logo-sq4 { animation-delay: 1.5s; }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50%       { transform: scale(1.06); }
+    }
+
+    @keyframes draw {
+      0%   { stroke-dashoffset: 250; opacity: 0; }
+      25%  { stroke-dashoffset: 0;   opacity: 1; }
+      70%  { opacity: 1; }
+      100% { stroke-dashoffset: 250; opacity: 0; }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 0 24px; }
+      .nav-links { display: none; }
+      section { padding: 80px 24px; }
+      .services-grid { grid-template-columns: 1fr; }
+      .about-wrap { grid-template-columns: 1fr; gap: 40px; }
+      .method-steps { grid-template-columns: 1fr 1fr; }
+      footer { grid-template-columns: 1fr 1fr; }
+      .cta-block { margin: 0 24px 80px; padding: 64px 32px; }
+      .footer-bottom { padding: 24px; }
+    }
+
+    @media (max-width: 600px) {
+      .method-steps { grid-template-columns: 1fr; }
+      footer { grid-template-columns: 1fr; }
+      .hero-actions { flex-direction: column; align-items: center; }
+      .about-stats { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <!-- mini logo icon -->
+    <svg class="nav-logo-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="14" y="14" width="18" height="18" rx="4" fill="#0F1A2B"/>
+      <rect x="6" y="6" width="16" height="16" rx="4" fill="none" stroke="#0F1A2B" stroke-width="1.5"/>
+    </svg>
+    <span class="nav-logo-name">Quadro</span>
+  </a>
+
+  <ul class="nav-links">
+    <li><a href="#servicos">Serviços</a></li>
+    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="#metodologia">Metodologia</a></li>
+    <li><a href="#contato">Contato</a></li>
+  </ul>
+
+  <a href="https://wa.me/5585936180721" class="nav-cta" target="_blank" rel="noreferrer">Falar com a equipe</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">Tecnologia · Inovação · Resultados</div>
+
+  <div class="hero-logo-wrap">
+    <svg class="hero-logo-svg" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- outer squares animated -->
+      <rect class="logo-sq logo-sq1" x="20" y="20" width="70" height="70" rx="14"/>
+      <rect class="logo-sq logo-sq2" x="110" y="20" width="70" height="70" rx="14"/>
+      <rect class="logo-sq logo-sq3" x="20" y="110" width="70" height="70" rx="14"/>
+      <rect class="logo-sq logo-sq4" x="110" y="110" width="70" height="70" rx="14"/>
+      <!-- center core -->
+      <rect class="logo-center" x="72" y="72" width="56" height="56" rx="12"/>
+    </svg>
+  </div>
+
+  <h1>Soluções digitais que <em>transformam</em> negócios</h1>
+  <p class="hero-sub">Desenvolvimento de software sob medida, metodologia ágil e tecnologia de ponta para impulsionar o seu crescimento.</p>
+
+  <div class="hero-actions">
+    <a href="#servicos" class="btn-primary">
+      Ver serviços
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+    <a href="#sobre" class="btn-ghost">Conheça a Quadro</a>
+  </div>
+</div>
+
+<!-- TECH STRIP -->
+<div class="tech-strip">
+  <div class="tech-inner">
+    <span class="tech-item">React</span>
+    <span class="tech-item">Node.js</span>
+    <span class="tech-item">TypeScript</span>
+    <span class="tech-item">Python</span>
+    <span class="tech-item">AWS</span>
+    <span class="tech-item">Azure</span>
+    <span class="tech-item">Google Cloud</span>
+    <span class="tech-item">Docker</span>
+    <span class="tech-item">Kubernetes</span>
+    <span class="tech-item">PostgreSQL</span>
+    <span class="tech-item">MongoDB</span>
+    <span class="tech-item">GraphQL</span>
+    <!-- duplicate for seamless loop -->
+    <span class="tech-item">React</span>
+    <span class="tech-item">Node.js</span>
+    <span class="tech-item">TypeScript</span>
+    <span class="tech-item">Python</span>
+    <span class="tech-item">AWS</span>
+    <span class="tech-item">Azure</span>
+    <span class="tech-item">Google Cloud</span>
+    <span class="tech-item">Docker</span>
+    <span class="tech-item">Kubernetes</span>
+    <span class="tech-item">PostgreSQL</span>
+    <span class="tech-item">MongoDB</span>
+    <span class="tech-item">GraphQL</span>
+  </div>
+</div>
+
+<!-- SERVICE DETAIL OVERLAY -->
+<div id="svc-overlay" style="display:none; position:fixed; inset:0; z-index:200; background:var(--bg); overflow-y:auto;">
+  <style>
+    #svc-overlay { animation: overlayIn 0.38s cubic-bezier(0.22,1,0.36,1) both; }
+    @keyframes overlayIn {
+      from { opacity:0; transform:translateY(32px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+    .svc-nav {
+      position: sticky; top:0; z-index:10;
+      display:flex; align-items:center; justify-content:space-between;
+      padding: 0 56px; height:64px;
+      background: rgba(246,246,244,0.9);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(15,26,43,0.08);
+    }
+    .svc-back {
+      display:inline-flex; align-items:center; gap:8px;
+      font-family:'DM Sans',sans-serif; font-size:13px; font-weight:400;
+      color:rgba(15,26,43,0.55); background:none; border:none; cursor:pointer;
+      padding:0; transition:color 0.2s; letter-spacing:0.2px;
+    }
+    .svc-back:hover { color:#0F1A2B; }
+    .svc-back svg { width:14px; height:14px; stroke:currentColor; fill:none; stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round; }
+    .svc-back-num { font-family:'DM Mono',monospace; font-size:10px; letter-spacing:1.5px; color:rgba(15,26,43,0.35); }
+
+    .svc-body { max-width:900px; margin:0 auto; padding:80px 56px 120px; }
+
+    .svc-eyebrow {
+      font-family:'DM Mono',monospace; font-size:10px; letter-spacing:2.5px;
+      text-transform:uppercase; color:rgba(15,26,43,0.45); margin-bottom:20px;
+      display:flex; align-items:center; gap:12px;
+    }
+    .svc-eyebrow::after { content:''; flex:1; height:1px; background:rgba(15,26,43,0.1); }
+
+    .svc-headline {
+      font-size:clamp(36px,6vw,64px); font-weight:300; line-height:1.06;
+      letter-spacing:-2px; color:#0F1A2B; margin-bottom:32px;
+    }
+    .svc-headline em { font-style:italic; }
+
+    .svc-lead {
+      font-size:18px; font-weight:300; line-height:1.7;
+      color:rgba(15,26,43,0.65); max-width:680px; margin-bottom:72px;
+      border-left:2px solid #0F1A2B; padding-left:24px;
+    }
+
+    .svc-section-label {
+      font-family:'DM Mono',monospace; font-size:9px; letter-spacing:2px;
+      text-transform:uppercase; color:rgba(15,26,43,0.4); margin-bottom:24px;
+    }
+
+    /* HOW WE DO IT */
+    .svc-practice { margin-bottom:72px; }
+    .svc-steps { display:flex; flex-direction:column; gap:2px; }
+    .svc-step {
+      display:grid; grid-template-columns:48px 1fr;
+      gap:20px; align-items:start;
+      padding:24px 0; border-bottom:1px solid rgba(15,26,43,0.07);
+    }
+    .svc-step:last-child { border-bottom:none; }
+    .svc-step-num {
+      font-family:'DM Mono',monospace; font-size:11px;
+      color:rgba(15,26,43,0.3); padding-top:3px;
+    }
+    .svc-step-content h4 {
+      font-size:15px; font-weight:500; color:#0F1A2B;
+      letter-spacing:-0.2px; margin-bottom:6px;
+    }
+    .svc-step-content p {
+      font-size:14px; font-weight:300; color:rgba(15,26,43,0.6); line-height:1.65;
+    }
+
+    /* TECH */
+    .svc-tech { margin-bottom:72px; }
+    .svc-tech-grid {
+      display:flex; flex-wrap:wrap; gap:8px; margin-top:4px;
+    }
+    .svc-tag {
+      font-family:'DM Mono',monospace; font-size:11px; letter-spacing:0.5px;
+      color:#0F1A2B; background:rgba(15,26,43,0.05);
+      border:1px solid rgba(15,26,43,0.1);
+      padding:7px 14px; border-radius:100px;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .svc-tag:hover { background:rgba(15,26,43,0.1); border-color:rgba(15,26,43,0.2); }
+
+    /* DELIVERABLES */
+    .svc-deliverables { margin-bottom:72px; }
+    .svc-deliverable-list { display:flex; flex-direction:column; gap:2px; }
+    .svc-deliverable {
+      display:flex; align-items:flex-start; gap:16px;
+      padding:20px; background:#fff;
+      border:1px solid rgba(15,26,43,0.08);
+      border-radius:14px; transition:background 0.2s;
+    }
+    .svc-deliverable:hover { background:#fafaf9; }
+    .svc-check {
+      width:20px; height:20px; border-radius:50%;
+      background:#0F1A2B; flex-shrink:0; margin-top:1px;
+      display:flex; align-items:center; justify-content:center;
+    }
+    .svc-check svg { width:10px; height:10px; stroke:#fff; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+    .svc-deliverable-text h5 { font-size:14px; font-weight:500; color:#0F1A2B; margin-bottom:4px; }
+    .svc-deliverable-text p { font-size:13px; font-weight:300; color:rgba(15,26,43,0.55); line-height:1.5; }
+
+    /* CTA */
+    .svc-cta {
+      margin-top:80px; padding:56px; background:#0F1A2B; border-radius:20px;
+      display:flex; align-items:center; justify-content:space-between; gap:32px;
+      flex-wrap:wrap;
+    }
+    .svc-cta h3 { font-size:24px; font-weight:300; letter-spacing:-0.5px; color:#fff; }
+    .svc-cta h3 em { font-style:italic; opacity:0.6; }
+    .svc-cta a {
+      display:inline-flex; align-items:center; gap:8px;
+      background:#fff; color:#0F1A2B; font-size:14px; font-weight:500;
+      padding:13px 28px; border-radius:100px; text-decoration:none;
+      white-space:nowrap; transition:opacity 0.2s;
+    }
+    .svc-cta a:hover { opacity:0.85; }
+    .svc-cta a svg { width:13px; height:13px; stroke:#0F1A2B; fill:none; stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round; }
+
+    @media(max-width:640px){
+      .svc-nav { padding:0 24px; }
+      .svc-body { padding:56px 24px 80px; }
+      .svc-cta { padding:36px; }
+    }
+  </style>
+
+  <!-- sticky top nav of overlay -->
+  <div class="svc-nav">
+    <button class="svc-back" onclick="closeService()">
+      <svg viewBox="0 0 14 14"><path d="M12 7H2M7 2L2 7l5 5"/></svg>
+      Voltar aos serviços
+    </button>
+    <span class="svc-back-num" id="svc-num-label"></span>
+  </div>
+
+  <!-- dynamic content injected here -->
+  <div class="svc-body" id="svc-body"></div>
+</div>
+
+<!-- SERVICES -->
+<section id="servicos">
+  <p class="section-label reveal">O que fazemos</p>
+  <h2 class="section-title reveal">Serviços pensados para <em>escalar</em> com você</h2>
+
+  <div class="services-grid reveal">
+
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 18 18"><polyline points="4 10 1 10 1 3 14 3 14 10 11 10"/><rect x="4" y="10" width="10" height="7" rx="1"/></svg>
+      </div>
+      <span class="service-number">01</span>
+      <h3>Desenvolvimento de Software</h3>
+      <p>Criamos soluções personalizadas que se integram perfeitamente aos seus processos de negócio, com arquitetura escalável e foco em performance.</p>
+      <a href="#" class="service-link" onclick="openService(0);return false;">
+        Saiba mais
+        <svg viewBox="0 0 14 14"><path d="M2 7h10M7 2l5 5-5 5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 18 18"><circle cx="9" cy="6" r="3"/><path d="M3 15c0-3.314 2.686-5 6-5s6 1.686 6 5"/><line x1="9" y1="9" x2="9" y2="11"/><circle cx="5" cy="13" r="1.2"/><circle cx="13" cy="13" r="1.2"/></svg>
+      </div>
+      <span class="service-number">02</span>
+      <h3>Modelos de IA</h3>
+      <p>Desenvolvemos e integramos modelos de inteligência artificial customizados — de LLMs a visão computacional — que automatizam decisões e geram vantagem competitiva real.</p>
+      <a href="#" class="service-link" onclick="openService(1);return false;">
+        Saiba mais
+        <svg viewBox="0 0 14 14"><path d="M2 7h10M7 2l5 5-5 5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 18 18"><rect x="1" y="4" width="16" height="12" rx="2"/><path d="M5 4V3a2 2 0 014 0v1"/><circle cx="9" cy="10" r="2"/></svg>
+      </div>
+      <span class="service-number">03</span>
+      <h3>Consultoria Tecnológica</h3>
+      <p>Orientamos sua empresa na adoção das tecnologias certas, com diagnóstico estratégico, roadmap e acompanhamento contínuo da jornada digital.</p>
+      <a href="#" class="service-link" onclick="openService(2);return false;">
+        Saiba mais
+        <svg viewBox="0 0 14 14"><path d="M2 7h10M7 2l5 5-5 5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 18 18"><circle cx="9" cy="9" r="7"/><path d="M9 5v4l3 3"/></svg>
+      </div>
+      <span class="service-number">04</span>
+      <h3>Metodologia Ágil</h3>
+      <p>Entregamos valor de forma iterativa com sprints curtos, prototipagem rápida e total adaptabilidade às mudanças de requisitos do seu projeto.</p>
+      <a href="#" class="service-link" onclick="openService(3);return false;">
+        Saiba mais
+        <svg viewBox="0 0 14 14"><path d="M2 7h10M7 2l5 5-5 5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 18 18"><path d="M9 1l2.5 5h5.5l-4.5 3.5 1.5 5.5-5-3-5 3 1.5-5.5L1 6h5.5z"/></svg>
+      </div>
+      <span class="service-number">05</span>
+      <h3>Design de Produto</h3>
+      <p>UI/UX centrado no usuário que maximiza a adoção e a produtividade. Interfaces intuitivas que traduzem complexidade em experiências simples.</p>
+      <a href="#" class="service-link" onclick="openService(4);return false;">
+        Saiba mais
+        <svg viewBox="0 0 14 14"><path d="M2 7h10M7 2l5 5-5 5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 18 18"><path d="M2 13s1-1 3-1 3 1 5 1 3-1 5-1"/><path d="M2 9s1-1 3-1 3 1 5 1 3-1 5-1"/><path d="M2 5s1-1 3-1 3 1 5 1 3-1 5-1"/></svg>
+      </div>
+      <span class="service-number">06</span>
+      <h3>Cloud & Infraestrutura</h3>
+      <p>Arquiteturas cloud-native preparadas para o futuro, com escalabilidade automática, alta disponibilidade e segurança enterprise desde o primeiro deploy.</p>
+      <a href="#" class="service-link" onclick="openService(5);return false;">
+        Saiba mais
+        <svg viewBox="0 0 14 14"><path d="M2 7h10M7 2l5 5-5 5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<script>
+const SERVICES = [
+  {
+    num: '01',
+    title: 'Desenvolvimento\nde <em>Software</em>',
+    lead: 'Construímos software sob medida que resolve problemas reais. Cada linha de código é pensada para durar, escalar e evoluir junto com o seu negócio — sem atalhos e sem retrabalho.',
+    practice: [
+      { title: 'Imersão e discovery', desc: 'Antes de escrever qualquer código, mapeamos profundamente o problema. Realizamos workshops com stakeholders, analisamos o fluxo atual de processos e identificamos os pontos de maior impacto para o produto.' },
+      { title: 'Arquitetura orientada ao negócio', desc: 'Definimos a stack e a arquitetura com base nos requisitos reais: volume de usuários, integrações existentes, orçamento de operação e velocidade de crescimento esperada.' },
+      { title: 'Desenvolvimento incremental', desc: 'Trabalhamos em ciclos curtos com entregas funcionais a cada sprint. O cliente valida continuamente, o que elimina surpresas no final e reduz drasticamente o risco de produto.' },
+      { title: 'Qualidade integrada', desc: 'Testes automatizados, code review rigoroso e pipelines de CI/CD fazem parte do processo desde o primeiro dia — não são etapa final.' },
+    ],
+    tech: ['React','Next.js','Node.js','TypeScript','Python','Django','PostgreSQL','Redis','Docker','Kubernetes','GitHub Actions','AWS','Terraform'],
+    deliverables: [
+      { title: 'Produto funcional em produção', desc: 'Software estável, testado e documentado, operando no ambiente do cliente desde a primeira entrega.' },
+      { title: 'Documentação técnica completa', desc: 'Arquitetura, endpoints, fluxos e decisões de design registradas para facilitar a manutenção futura.' },
+      { title: 'Pipelines de CI/CD configurados', desc: 'Deploy automatizado com rollback seguro, garantindo agilidade e confiança em cada atualização.' },
+      { title: 'Cobertura de testes ≥80%', desc: 'Suite de testes unitários e de integração que protege o produto contra regressões.' },
+      { title: 'Handover e capacitação', desc: 'Transferência de conhecimento para o time interno, com sessões de onboarding técnico e repositório documentado.' },
+    ]
+  },
+  {
+    num: '02',
+    title: 'Modelos\nde <em>IA</em>',
+    lead: 'Inteligência artificial deixou de ser diferencial para se tornar infraestrutura. Desenvolvemos e integramos modelos customizados que automatizam decisões complexas, extraem valor de dados e criam produtos genuinamente inteligentes.',
+    practice: [
+      { title: 'Diagnóstico de oportunidades de IA', desc: 'Mapeamos os processos da empresa e identificamos onde modelos de IA geram o maior retorno: automação de tarefas repetitivas, análise preditiva, classificação de dados ou geração de conteúdo. Priorizamos por impacto e viabilidade técnica.' },
+      { title: 'Seleção e customização de modelos', desc: 'Avaliamos se o problema exige fine-tuning de um modelo existente (LLMs como Claude, GPT ou modelos open-source), treinamento do zero ou integração via API. Escolhemos sempre a abordagem mais eficiente para o contexto.' },
+      { title: 'Desenvolvimento de pipelines de dados e RAG', desc: 'Construímos os pipelines de ingestão, limpeza e vetorização de dados que alimentam os modelos. Para aplicações com LLMs, implementamos arquiteturas RAG (Retrieval-Augmented Generation) para garantir respostas precisas e atualizadas com os dados da empresa.' },
+      { title: 'Avaliação, monitoramento e melhoria contínua', desc: 'Definimos métricas de qualidade (acurácia, latência, custo por inferência) e implementamos sistemas de avaliação contínua. Modelos de IA degradam com o tempo — garantimos que o seu melhore.' },
+    ],
+    tech: ['Claude API','OpenAI API','Anthropic','LangChain','LlamaIndex','Hugging Face','PyTorch','scikit-learn','Pinecone','Weaviate','pgvector','Python','FastAPI','AWS Bedrock','Google Vertex AI'],
+    deliverables: [
+      { title: 'Relatório de oportunidades e ROI esperado', desc: 'Mapeamento dos casos de uso de IA com estimativa de impacto mensurável por iniciativa.' },
+      { title: 'Modelo treinado ou integrado em produção', desc: 'Solução de IA operando no ambiente do cliente, com API documentada e pronta para consumo.' },
+      { title: 'Pipeline de dados estruturado', desc: 'Infraestrutura de ingestão, processamento e vetorização de dados que alimenta e atualiza o modelo.' },
+      { title: 'Sistema de avaliação e monitoramento', desc: 'Dashboard com métricas de qualidade, latência e custo, com alertas configurados para desvios.' },
+      { title: 'Documentação e transferência de conhecimento', desc: 'Guia de operação do modelo, critérios de retreinamento e capacitação do time para evolução autônoma.' },
+    ]
+  },
+  {
+    num: '03',
+    title: 'Consultoria\n<em>Tecnológica</em>',
+    lead: 'Ajudamos líderes a tomar decisões tecnológicas com clareza. Traduzimos complexidade técnica em linguagem de negócio — e vice-versa — para que a tecnologia sirva à estratégia, não o contrário.',
+    practice: [
+      { title: 'Diagnóstico de maturidade digital', desc: 'Avaliamos o estado atual da tecnologia, processos e time da empresa. Identificamos gargalos, dívida técnica e oportunidades de modernização com impacto mensurável.' },
+      { title: 'Definição de roadmap estratégico', desc: 'Construímos um plano de evolução tecnológica priorizado por valor de negócio, com horizonte de 6, 12 e 24 meses, estimativas de custo e riscos mapeados.' },
+      { title: 'Seleção e avaliação de fornecedores', desc: 'Quando necessário, apoiamos na escolha de plataformas, ferramentas e parceiros tecnológicos — com critérios técnicos e financeiros objetivos, sem viés de fornecedor.' },
+      { title: 'Acompanhamento e governança', desc: 'Atuamos como CTO as a Service ou parceiro estratégico recorrente, participando de decisões técnicas e garantindo que o roadmap seja executado com qualidade.' },
+    ],
+    tech: ['TOGAF','Domain-Driven Design','Event Storming','C4 Model','OKRs','DORA Metrics','AWS Well-Architected','Google Cloud','Azure','Notion','Miro','Jira'],
+    deliverables: [
+      { title: 'Relatório de diagnóstico', desc: 'Mapa completo do estado atual com pontuação de maturidade por área e prioridades de intervenção.' },
+      { title: 'Roadmap tecnológico', desc: 'Plano de evolução detalhado, priorizado e com estimativas de esforço e investimento por iniciativa.' },
+      { title: 'Arquitetura de referência', desc: 'Visão de onde a arquitetura precisa chegar, com diagramas C4 e decisões de design documentadas.' },
+      { title: 'Relatórios de acompanhamento', desc: 'Reuniões mensais e relatórios de progresso com métricas de saúde técnica e aderência ao plano.' },
+      { title: 'Playbook de decisões', desc: 'Registro de critérios e frameworks de decisão para o time continuar evoluindo de forma autônoma.' },
+    ]
+  },
+  {
+    num: '04',
+    title: 'Metodologia\n<em>Ágil</em>',
+    lead: 'Agilidade real não é sobre cerimônias — é sobre aprender rápido e ajustar constantemente. Implementamos e evoluímos práticas ágeis que funcionam de verdade no contexto da sua empresa.',
+    practice: [
+      { title: 'Assessment do processo atual', desc: 'Observamos como o time trabalha hoje: como prioriza, como entrega, onde perde tempo. Identificamos os pontos de fricção que mais impactam a velocidade e a qualidade.' },
+      { title: 'Implantação de rituais e artefatos', desc: 'Configuramos sprints, backlog refinement, dailies, reviews e retrospectivas adaptados ao contexto e tamanho do time — sem burocracia desnecessária.' },
+      { title: 'Treinamento e coaching', desc: 'Capacitamos POs, tech leads e desenvolvedores nas práticas ágeis com foco na prática, não na teoria. Acompanhamos os primeiros ciclos até o time ganhar autonomia.' },
+      { title: 'Métricas e melhoria contínua', desc: 'Definimos indicadores (velocity, cycle time, NPS de entrega) e fazemos retrospectivas orientadas a dados para que o processo melhore sprint a sprint.' },
+    ],
+    tech: ['Scrum','Kanban','Shape Up','Linear','Jira','Notion','GitHub Projects','Figma','Miro','OKRs','DORA Metrics','Team Topologies'],
+    deliverables: [
+      { title: 'Diagnóstico do processo de desenvolvimento', desc: 'Mapeamento do fluxo atual com identificação de desperdícios e oportunidades de ganho.' },
+      { title: 'Processo ágil configurado e documentado', desc: 'Rituais, templates e ferramentas configurados e prontos para uso pelo time.' },
+      { title: 'Time treinado e autônomo', desc: 'Capacitação prática com acompanhamento nos primeiros sprints até o time operar de forma independente.' },
+      { title: 'Dashboard de métricas', desc: 'Painel com indicadores de fluxo e qualidade atualizados a cada sprint.' },
+      { title: 'Playbook de agilidade', desc: 'Guia interno com todas as práticas, acordos de time e critérios de pronto para a organização.' },
+    ]
+  },
+  {
+    num: '05',
+    title: 'Design de\n<em>Produto</em>',
+    lead: 'Design não é como o produto parece — é como ele funciona. Criamos experiências que reduzem fricção, aumentam conversão e fazem usuários voltarem porque o produto simplesmente faz sentido.',
+    practice: [
+      { title: 'Research com usuários reais', desc: 'Conduzimos entrevistas, testes de usabilidade e análise de comportamento para entender o que os usuários realmente precisam — não o que imaginamos que precisam.' },
+      { title: 'Definição de fluxos e arquitetura de informação', desc: 'Mapeamos jornadas, hierarquia de conteúdo e fluxos críticos antes de abrir qualquer ferramenta de design. A estrutura precede a estética.' },
+      { title: 'Prototipagem e validação rápida', desc: 'Criamos protótipos de média e alta fidelidade e os testamos com usuários reais antes de qualquer desenvolvimento. Falhar no protótipo é barato; falhar no produto não é.' },
+      { title: 'Design system e documentação', desc: 'Entregamos um sistema de design vivo: componentes reutilizáveis, tokens de estilo e diretrizes que garantem consistência enquanto o produto cresce.' },
+    ],
+    tech: ['Figma','FigJam','Maze','Hotjar','Mixpanel','Storybook','Radix UI','Tailwind CSS','Lottie','Framer Motion','Zeroheight','Notion'],
+    deliverables: [
+      { title: 'Relatório de research', desc: 'Síntese das entrevistas e testes com insights acionáveis e personas validadas.' },
+      { title: 'Fluxos e wireframes', desc: 'Mapeamento de todas as jornadas críticas em wireframes revisados com stakeholders.' },
+      { title: 'Protótipo navegável de alta fidelidade', desc: 'Protótipo testável que representa fielmente a experiência final do produto.' },
+      { title: 'Design system documentado', desc: 'Biblioteca de componentes no Figma com tokens, variantes e guidelines de uso.' },
+      { title: 'Handoff para desenvolvimento', desc: 'Especificações técnicas detalhadas, assets exportados e documentação de interação para o time de engenharia.' },
+    ]
+  },
+  {
+    num: '06',
+    title: 'Cloud &\n<em>Infraestrutura</em>',
+    lead: 'Infraestrutura bem desenhada é invisível — o sistema simplesmente funciona. Construímos ambientes cloud-native resilientes, seguros e econômicos que escalam com o seu crescimento.',
+    practice: [
+      { title: 'Arquitetura cloud e Well-Architected Review', desc: 'Avaliamos ou desenhamos a arquitetura seguindo os pilares de segurança, confiabilidade, performance, eficiência de custos e excelência operacional.' },
+      { title: 'Infraestrutura como código', desc: 'Todo ambiente é provisionado via código (Terraform ou CDK), versionado e revisado como qualquer outro software. Mudanças são rastreáveis e reversíveis.' },
+      { title: 'Containerização e orquestração', desc: 'Empacotamos aplicações em containers Docker e as orquestramos com Kubernetes ou ECS, garantindo portabilidade, isolamento e escalabilidade automática.' },
+      { title: 'Segurança e compliance', desc: 'Implementamos IAM com menor privilégio, criptografia em trânsito e repouso, scanning de vulnerabilidades e conformidade com LGPD e SOC 2 quando aplicável.' },
+    ],
+    tech: ['AWS','Google Cloud','Azure','Terraform','Kubernetes','Docker','Helm','ArgoCD','Prometheus','Grafana','Datadog','CloudFlare','GitHub Actions','Vault'],
+    deliverables: [
+      { title: 'Arquitetura documentada', desc: 'Diagramas de infraestrutura com fluxos de rede, componentes e decisões de design justificadas.' },
+      { title: 'Infraestrutura como código', desc: 'Repositório Terraform/CDK com todos os recursos provisionados, versionados e documentados.' },
+      { title: 'Pipelines de deploy automatizados', desc: 'CI/CD configurado com deploys blue/green ou canary e rollback automático em caso de falha.' },
+      { title: 'Observabilidade completa', desc: 'Logs centralizados, métricas, traces distribuídos e alertas configurados para todos os serviços críticos.' },
+      { title: 'Relatório de segurança e custos', desc: 'Análise de postura de segurança e otimização de custos com recomendações de rightsizing e reservas.' },
+    ]
+  }
+];
+
+function openService(idx) {
+  const s = SERVICES[idx];
+  const overlay = document.getElementById('svc-overlay');
+  document.getElementById('svc-num-label').textContent = s.num + ' / 06';
+
+  const stepsHtml = s.practice.map((step, i) => `
+    <div class="svc-step">
+      <span class="svc-step-num">0${i+1}</span>
+      <div class="svc-step-content">
+        <h4>${step.title}</h4>
+        <p>${step.desc}</p>
+      </div>
+    </div>`).join('');
+
+  const tagsHtml = s.tech.map(t => `<span class="svc-tag">${t}</span>`).join('');
+
+  const delivHtml = s.deliverables.map(d => `
+    <div class="svc-deliverable">
+      <div class="svc-check"><svg viewBox="0 0 10 8"><polyline points="1 4 3.5 6.5 9 1"/></svg></div>
+      <div class="svc-deliverable-text"><h5>${d.title}</h5><p>${d.desc}</p></div>
+    </div>`).join('');
+
+  const titleLines = s.title.split('\n');
+  const serviceName = s.title.replace(/<[^>]+>/g, '').replace(/\s*\n\s*/g, ' ').trim();
+
+  document.getElementById('svc-body').innerHTML = `
+    <div class="svc-eyebrow">${s.num} &nbsp; Serviço</div>
+    <h1 class="svc-headline">${titleLines.join('<br>')}</h1>
+    <p class="svc-lead">${s.lead}</p>
+
+    <div class="svc-practice">
+      <p class="svc-section-label">Como aplicamos na prática</p>
+      <div class="svc-steps">${stepsHtml}</div>
+    </div>
+
+    <div class="svc-tech">
+      <p class="svc-section-label">Tecnologias que utilizamos</p>
+      <div class="svc-tech-grid">${tagsHtml}</div>
+    </div>
+
+    <div class="svc-deliverables">
+      <p class="svc-section-label">Entregas esperadas</p>
+      <div class="svc-deliverable-list">${delivHtml}</div>
+    </div>
+
+    <div class="svc-cta">
+      <h3>Pronto para começar com <em>${serviceName}</em>?</h3>
+      <a href="https://wa.me/5585936180721" onclick="closeService()" target="_blank" rel="noreferrer">
+        Falar com a equipe
+        <svg viewBox="0 0 13 13"><path d="M1 6.5h11M6.5 1l5.5 5.5-5.5 5.5"/></svg>
+      </a>
+    </div>
+  `;
+
+  overlay.style.display = 'block';
+  overlay.scrollTop = 0;
+  document.body.style.overflow = 'hidden';
+  // re-trigger animation
+  overlay.style.animation = 'none';
+  overlay.offsetHeight;
+  overlay.style.animation = '';
+}
+
+function closeService() {
+  const overlay = document.getElementById('svc-overlay');
+  overlay.style.display = 'none';
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeService(); });
+</script>
+
+<hr class="section-divider">
+
+<!-- ABOUT -->
+<div class="about-wrap" id="sobre" style="max-width:1200px;margin:0 auto;padding:0 48px;">
+  <div>
+    <p class="section-label reveal">Sobre a Quadro</p>
+    <h2 class="section-title reveal">Parceiros na sua <em>jornada</em> tecnológica</h2>
+    <div class="about-stats reveal">
+      <div class="stat-cell">
+        <div class="num">+120</div>
+        <div class="lbl">Projetos entregues</div>
+      </div>
+      <div class="stat-cell">
+        <div class="num">8+</div>
+        <div class="lbl">Anos de mercado</div>
+      </div>
+      <div class="stat-cell">
+        <div class="num">40+</div>
+        <div class="lbl">Clientes ativos</div>
+      </div>
+      <div class="stat-cell">
+        <div class="num">98%</div>
+        <div class="lbl">Satisfação</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="about-right reveal">
+    <p>A Quadro é uma empresa de tecnologia focada em desenvolvimento de software, com uma cultura de aprendizado contínuo e comprometimento com a excelência técnica.</p>
+    <p>Desenvolvemos soluções sob medida que atendem às necessidades e objetivos específicos dos nossos clientes, garantindo integração perfeita com seus processos de negócios e preparação para os desafios do futuro.</p>
+    <p>Ao longo dos anos, nos tornamos parceiros estratégicos de empresas que buscam não apenas tecnologia, mas uma consultora confiável em toda a sua jornada digital.</p>
+
+    <div class="about-pillars">
+      <div class="pillar"><span class="pillar-dot"></span>Soluções personalizadas e escaláveis</div>
+      <div class="pillar"><span class="pillar-dot"></span>Tecnologias de ponta e frameworks modernos</div>
+      <div class="pillar"><span class="pillar-dot"></span>Design centrado no usuário</div>
+      <div class="pillar"><span class="pillar-dot"></span>Equipe multidisciplinar e colaborativa</div>
+      <div class="pillar"><span class="pillar-dot"></span>Suporte contínuo e evolução constante</div>
+    </div>
+  </div>
+</div>
+
+<hr class="section-divider">
+
+<!-- METHODOLOGY -->
+<section id="metodologia" class="method-wrap" style="padding-top:120px;padding-bottom:120px;">
+  <p class="section-label reveal">Como trabalhamos</p>
+  <h2 class="section-title reveal">Processo <em>ágil</em>, resultados concretos</h2>
+
+  <div class="method-steps reveal">
+    <div class="step">
+      <span class="step-num">01 — Descoberta</span>
+      <h4>Diagnóstico & Alinhamento</h4>
+      <p>Entendemos profundamente o seu negócio, mapear processos e definir objetivos claros antes de escrever uma única linha de código.</p>
+    </div>
+    <div class="step">
+      <span class="step-num">02 — Planejamento</span>
+      <h4>Arquitetura & Roadmap</h4>
+      <p>Definimos a arquitetura técnica ideal, priorizamos funcionalidades e construímos um roadmap realista com entregas incrementais de valor.</p>
+    </div>
+    <div class="step">
+      <span class="step-num">03 — Desenvolvimento</span>
+      <h4>Sprints & Entregas</h4>
+      <p>Desenvolvemos em ciclos curtos com demos frequentes, mantendo o cliente no centro de cada decisão e adaptando rapidamente às mudanças.</p>
+    </div>
+    <div class="step">
+      <span class="step-num">04 — Evolução</span>
+      <h4>Suporte & Crescimento</h4>
+      <p>Acompanhamos o produto em produção, monitoramos métricas e evoluímos continuamente a solução junto com o crescimento do seu negócio.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BLOCK -->
+<div class="cta-block" id="contato">
+  <h2>Pronto para <em>transformar</em> sua operação?</h2>
+  <p>Fale com nossa equipe e descubra como a Quadro pode acelerar o seu próximo projeto.</p>
+  <a href="https://wa.me/5585936180721" class="btn-light" target="_blank" rel="noreferrer">
+    Iniciar conversa
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M7 2l5 5-5 5" stroke="#0F1A2B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">
+    <a href="#" class="nav-logo" style="margin-bottom:4px">
+      <svg width="32" height="32" viewBox="0 0 40 40" fill="none">
+        <rect x="14" y="14" width="18" height="18" rx="4" fill="#0F1A2B"/>
+        <rect x="6" y="6" width="16" height="16" rx="4" fill="none" stroke="#0F1A2B" stroke-width="1.5"/>
+      </svg>
+      <span class="nav-logo-name" style="font-size:14px;">Quadro</span>
+    </a>
+    <p class="tagline">Tecnologia que transforma negócios em resultados.</p>
+  </div>
+
+  <div class="footer-col">
+    <h5>Serviços</h5>
+    <ul>
+      <li><a href="#">Desenvolvimento de Software</a></li>
+      <li><a href="#">Consultoria Tecnológica</a></li>
+      <li><a href="#">Design de Produto</a></li>
+      <li><a href="#">Cloud & Infraestrutura</a></li>
+      <li><a href="#">Integrações & APIs</a></li>
+    </ul>
+  </div>
+
+  <div class="footer-col">
+    <h5>Empresa</h5>
+    <ul>
+      <li><a href="#">Sobre nós</a></li>
+      <li><a href="#">Metodologia</a></li>
+      <li><a href="#">Cases</a></li>
+      <li><a href="#">Blog</a></li>
+      <li><a href="#">Carreiras</a></li>
+    </ul>
+  </div>
+
+  <div class="footer-col">
+    <h5>Contato</h5>
+    <ul>
+      <li><a href="mailto:contato@quadrodev.com">contato@quadrodev.com</a></li>
+      <li><a href="#">LinkedIn</a></li>
+      <li><a href="#">GitHub</a></li>
+      <li><a href="https://www.instagram.com/quadro.software/" target="_blank" rel="noreferrer">Instagram</a></li>
+    </ul>
+  </div>
+</footer>
+
+<div class="footer-bottom">
+  <p>© 2024 Quadro Tecnologia. Todos os direitos reservados.</p>
+  <p>Feito com precisão.</p>
+</div>
+
+<script>
+  // Intersection Observer for reveal animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        e.target.style.transitionDelay = (i * 0.05) + 's';
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
