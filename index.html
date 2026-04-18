@@ -275,6 +275,7 @@
     /* animated logo inline */
     .hero-logo-svg {
       width: 180px; height: 180px;
+      animation: logoFloat 7.2s ease-in-out infinite;
     }
 
     .hero h1 {
@@ -731,8 +732,9 @@
     /* ── LOGO SVG ANIMATION ── */
     .logo-center {
       fill: var(--logo-core);
-      animation: pulse 4s ease-in-out infinite;
-      transform-origin: 50% 50%;
+      animation: corePulse 4.2s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+      transform-box: fill-box;
+      transform-origin: center;
     }
 
     .logo-sq {
@@ -741,17 +743,28 @@
       stroke-width: 2;
       stroke-dasharray: 250;
       stroke-dashoffset: 250;
-      animation: draw 6s ease-in-out infinite;
+      transform-box: fill-box;
+      transform-origin: center;
+      animation-name: draw, sqDrift;
+      animation-duration: 6s, 6s;
+      animation-timing-function: ease-in-out, ease-in-out;
+      animation-iteration-count: infinite, infinite;
     }
 
-    .logo-sq1 { animation-delay: 0s; }
-    .logo-sq2 { animation-delay: 0.5s; }
-    .logo-sq3 { animation-delay: 1s; }
-    .logo-sq4 { animation-delay: 1.5s; }
+    .logo-sq1 { --drift-x: -8px; --drift-y: -8px; --return-x: 3px; --return-y: 3px; animation-delay: 0s, 0s; }
+    .logo-sq2 { --drift-x: 8px; --drift-y: -8px; --return-x: -3px; --return-y: 3px; animation-delay: 0.45s, 0.45s; }
+    .logo-sq3 { --drift-x: -8px; --drift-y: 8px; --return-x: 3px; --return-y: -3px; animation-delay: 0.9s, 0.9s; }
+    .logo-sq4 { --drift-x: 8px; --drift-y: 8px; --return-x: -3px; --return-y: -3px; animation-delay: 1.35s, 1.35s; }
 
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); }
-      50%       { transform: scale(1.06); }
+    @keyframes logoFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @keyframes corePulse {
+      0%, 100% { transform: scale(1) rotate(0deg); }
+      35% { transform: scale(1.08) rotate(5deg); }
+      65% { transform: scale(0.96) rotate(-5deg); }
     }
 
     @keyframes draw {
@@ -759,6 +772,13 @@
       25%  { stroke-dashoffset: 0;   opacity: 1; }
       70%  { opacity: 1; }
       100% { stroke-dashoffset: 250; opacity: 0; }
+    }
+
+    @keyframes sqDrift {
+      0%, 100% { transform: translate(0, 0) scale(0.9) rotate(0deg); }
+      25% { transform: translate(0, 0) scale(1) rotate(0deg); }
+      50% { transform: translate(var(--drift-x), var(--drift-y)) scale(1.05) rotate(4deg); }
+      75% { transform: translate(var(--return-x), var(--return-y)) scale(0.98) rotate(-4deg); }
     }
 
     /* ── RESPONSIVE ── */
@@ -1337,9 +1357,9 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeService
   </div>
 
   <div class="about-right reveal">
-    <p>A Quadro é uma empresa de tecnologia focada em desenvolvimento de software, com uma cultura de aprendizado contínuo e comprometimento com a excelência técnica.</p>
-    <p>Desenvolvemos soluções sob medida que atendem às necessidades e objetivos específicos dos nossos clientes, garantindo integração perfeita com seus processos de negócios e preparação para os desafios do futuro.</p>
-    <p>Ao longo dos anos, nos tornamos parceiros estratégicos de empresas que buscam não apenas tecnologia, mas uma consultora confiável em toda a sua jornada digital.</p>
+    <p>A Quadro é uma empresa de tecnologia especializada no desenvolvimento de software sob medida, que combina excelência técnica, visão estratégica e inovação para entregar soluções que geram impacto real nos negócios.</p>
+    <p>Com uma cultura orientada ao aprendizado contínuo e à alta performance, criamos produtos e soluções digitais perfeitamente alinhados aos objetivos de cada cliente, promovendo ganho de eficiência, escalabilidade e vantagem competitiva.</p>
+    <p>Mais do que uma fornecedora de tecnologia, a Quadro se posiciona como parceira estratégica na transformação digital de empresas que buscam confiança, sofisticação e resultados consistentes ao longo de toda a jornada.</p>
 
     <div class="about-pillars">
       <div class="pillar"><span class="pillar-dot"></span>Soluções personalizadas e escaláveis</div>
