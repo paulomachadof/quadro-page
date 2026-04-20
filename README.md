@@ -1,6 +1,6 @@
-# Quadro Landing Page
+# Qadro Landing Page
 
-Landing page estatica da Quadro, com layout responsivo, animacoes suaves e detalhes de servicos em overlay.
+Landing page estatica da Qadro, com layout responsivo, animacoes suaves e detalhes de servicos em overlay.
 
 ## Estrutura
 
