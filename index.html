@@ -1522,5 +1522,11 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeService
 
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 </script>
+
+<!-- Vercel Web Analytics -->
+<script type="module">
+  import { inject } from './node_modules/@vercel/analytics/dist/index.mjs';
+  inject();
+</script>
 </body>
 </html>
